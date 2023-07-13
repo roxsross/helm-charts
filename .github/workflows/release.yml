@@ -4,8 +4,6 @@ on:
   push:
     tags:
       - "*"
-    branches:
-      - "master"
 
 jobs:
   helmRelease:
@@ -27,16 +25,13 @@ jobs:
       - name: custom packaging
         run: |
           VERSION="0.1.0"
-          echo $VERSION
           rm -rf .cr-release-packages
           mkdir -p .cr-release-packages
-          ls -la
-          helm package charts/roxsross-stats-chart --app-version=${VERSION:1} --version=${VERSION:1} --destination=.cr-release-packages
+          helm package charts/roxsross-stats-chart --app-version=${VERSION} --version=${VERSION} --destination=.cr-release-packages
 
-      # - name: Run chart-releaser
-      #   # switch back to helm/chart-releaser-action if this contribution is ever merged
-      #   uses: askcloudarchitech/chart-releaser-action@skip-packaging-option
-      #   with:
-      #     skip_packaging: true
-      #   env:
-      #     CR_TOKEN: "${{ secrets.CR_TOKEN }}"
+      - name: Run chart-releaser
+        uses: askcloudarchitech/chart-releaser-action@skip-packaging-option
+        with:
+          skip_packaging: true
+        env:
+          CR_TOKEN: "${{ secrets.CR_TOKEN }}"
