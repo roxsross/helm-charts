@@ -4,9 +4,9 @@
 
 If you had already added this repo earlier, run `helm repo update` to retrieve
 the latest versions of the packages.  You can then run `helm search repo
-mobagel` to see the charts.
+devfinder` to see the charts.
 
-To install the fastapi chart:
+To install the devfinder chart:
 
     helm install devfinder onfire/devfinder
 
