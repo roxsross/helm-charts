@@ -1,7 +1,7 @@
 {{/*
 Expand the name of the chart.
 */}}
-{{- define "roxsross-demo-chart.name" -}}
+{{- define "roxsross-stats-chart.name" -}}
 {{- default .Chart.Name .Values.nameOverride | trunc 63 | trimSuffix "-" }}
 {{- end }}
 
@@ -10,7 +10,7 @@ Create a default fully qualified app name.
 We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
 If release name contains chart name it will be used as a full name.
 */}}
-{{- define "roxsross-demo-chart.fullname" -}}
+{{- define "roxsross-stats-chart.fullname" -}}
 {{- if .Values.fullnameOverride }}
 {{- .Values.fullnameOverride | trunc 63 | trimSuffix "-" }}
 {{- else }}
@@ -26,16 +26,16 @@ If release name contains chart name it will be used as a full name.
 {{/*
 Create chart name and version as used by the chart label.
 */}}
-{{- define "roxsross-demo-chart.chart" -}}
+{{- define "roxsross-stats-chart.chart" -}}
 {{- printf "%s-%s" .Chart.Name .Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" }}
 {{- end }}
 
 {{/*
 Common labels
 */}}
-{{- define "roxsross-demo-chart.labels" -}}
-helm.sh/chart: {{ include "roxsross-demo-chart.chart" . }}
-{{ include "roxsross-demo-chart.selectorLabels" . }}
+{{- define "roxsross-stats-chart.labels" -}}
+helm.sh/chart: {{ include "roxsross-stats-chart.chart" . }}
+{{ include "roxsross-stats-chart.selectorLabels" . }}
 {{- if .Chart.AppVersion }}
 app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
 {{- end }}
@@ -45,17 +45,17 @@ app.kubernetes.io/managed-by: {{ .Release.Service }}
 {{/*
 Selector labels
 */}}
-{{- define "roxsross-demo-chart.selectorLabels" -}}
-app.kubernetes.io/name: {{ include "roxsross-demo-chart.name" . }}
+{{- define "roxsross-stats-chart.selectorLabels" -}}
+app.kubernetes.io/name: {{ include "roxsross-stats-chart.name" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end }}
 
 {{/*
 Create the name of the service account to use
 */}}
-{{- define "roxsross-demo-chart.serviceAccountName" -}}
+{{- define "roxsross-stats-chart.serviceAccountName" -}}
 {{- if .Values.serviceAccount.create }}
-{{- default (include "roxsross-demo-chart.fullname" .) .Values.serviceAccount.name }}
+{{- default (include "roxsross-stats-chart.fullname" .) .Values.serviceAccount.name }}
 {{- else }}
 {{- default "default" .Values.serviceAccount.name }}
 {{- end }}
