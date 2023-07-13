@@ -27,10 +27,10 @@ jobs:
       - name: custom packaging
         run: |
           VERSION=${{ github.ref_name }}
-          echo "$VERSION"
+          echo $VERSION
           rm -rf .cr-release-packages
           mkdir -p .cr-release-packages
-          ls -lrt
+          ls -la
           helm package charts/roxsross-stats-chart --app-version=${VERSION:1} --version=${VERSION:1} --destination=.cr-release-packages
 
       # - name: Run chart-releaser
