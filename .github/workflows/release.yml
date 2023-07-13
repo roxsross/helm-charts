@@ -1,12 +1,12 @@
-name: ci
+name: Release Charts
 
 on:
   push:
-    tags:
-      - "*"
+    branches:
+      - master
 
 jobs:
-  helmRelease:
+  release:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -21,17 +21,10 @@ jobs:
 
       - name: Install Helm
         uses: azure/setup-helm@v3
-
-      - name: custom packaging
-        run: |
-          VERSION="0.1.0"
-          rm -rf .cr-release-packages
-          mkdir -p .cr-release-packages
-          helm package charts/roxsross-stats-chart --app-version=${VERSION} --version=${VERSION} --destination=.cr-release-packages
+        with:
+          version: v3.8.1
 
       - name: Run chart-releaser
-        uses: askcloudarchitech/chart-releaser-action@skip-packaging-option
-        with:
-          skip_packaging: true
+        uses: helm/chart-releaser-action@v1.4.0
         env:
-          CR_TOKEN: "${{ secrets.CR_TOKEN }}"
+          CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
